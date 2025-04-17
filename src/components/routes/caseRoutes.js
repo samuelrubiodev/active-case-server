@@ -87,10 +87,10 @@ router.post('/new', async (req, res) => {
       height: 1024,
       steps: 4,
       output_format: 'png',
-      response_format: 'url'
+      response_format: 'base64'
     });
 
-    addImage(caseID, responseCreateImage.data[0].url);
+    addImage(caseID, responseCreateImage.data[0].b64_json);
 
     res.send(json);
   } catch (error) {
