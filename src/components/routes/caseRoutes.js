@@ -94,10 +94,57 @@ router.post('/new', async (req, res) => {
     const bytes = await downloadImageToBuffer(responseCreateImage.data[0].url);
     addImage(caseID, bytes);
 
-    res.send(json);
+    res.send({ message: "Caso generado exitosamente", caseID });
   } catch (error) {
     console.error("Error generando el caso:", error);
     res.status(500).json({ error: "Ocurrió un error al generar el nuevo caso." });
+  }
+});
+
+
+router.post('/:caseID', async (req, res) => {
+  try {
+      const player = await postgres`SELECT * FROM "Players" WHERE "id" = ${req.body.playerID}`;
+      const cases = await postgres`
+          SELECT 
+              "id", 
+              "player_id", 
+              "title",
+              "date_occurred", 
+              "time_remaining",
+              "description",
+              "location",
+              "explanation_case_solved",
+              "difficult"
+          FROM "Cases"
+          WHERE "player_id" = ${req.body.playerID} AND "id" = ${req.params.caseID}
+      `
+      
+      const casesWithDetails = await Promise.all(cases.map(async (caseItem) => {
+          const [characters, evidences, messages, timeline] = await Promise.all([
+              postgres`SELECT * FROM "Characters" WHERE "case_id" = ${caseItem.id}`,
+              postgres`SELECT * FROM "Evidences" WHERE "case_id" = ${caseItem.id}`,
+              postgres`SELECT * FROM "Messages" WHERE "case_id" = ${caseItem.id}`,
+              postgres`SELECT * FROM "Timeline" WHERE "case_id" = ${caseItem.id}`
+          ]);
+          return {
+              ...caseItem,
+              characters,
+              evidences,
+              messages,
+              timeline
+          };
+      }));
+
+
+      return res.json({
+          player: player[0],
+          cases: casesWithDetails
+      });
+
+  } catch (error) {
+      console.error('Error fetching players:', error);
+      res.status(500).send('Internal Server Error');
   }
 });
 

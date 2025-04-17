@@ -1,16 +1,6 @@
 {
   "type": "object",
   "properties": {
-    "datosJugador": {
-      "type": "object",
-      "properties": {
-        "nombre": { "type": "string", "description": "Nombre del jugador" },
-        "estado": { "type": "string", "description": "Estado del jugador, Activo o Inactivo" },
-        "progreso": { "type": "string", "description": "En qué caso va, nombre del caso" }
-      },
-      "required": ["nombre", "estado", "progreso"],
-      "additionalProperties": false
-    },
     "Caso": {
       "type": "object",
       "properties": {

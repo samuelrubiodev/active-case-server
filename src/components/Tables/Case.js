@@ -1,6 +1,6 @@
 import postgres from '../api/postgres.js';
 
-const addCase =  async (json, playerId) => {
+const addCase = async (json, playerId) => {
     const id = await postgres`INSERT INTO "Cases" 
       (player_id, date_occurred, title, time_remaining, description, location, explanation_case_solved, difficult) 
       VALUES (
