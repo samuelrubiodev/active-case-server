@@ -1,0 +1,89 @@
+{
+  "type": "object",
+  "properties": {
+    "datosJugador": {
+      "type": "object",
+      "properties": {
+        "nombre": { "type": "string", "description": "Nombre del jugador" },
+        "estado": { "type": "string", "description": "Estado del jugador, Activo o Inactivo" },
+        "progreso": { "type": "string", "description": "En qué caso va, nombre del caso" }
+      },
+      "required": ["nombre", "estado", "progreso"],
+      "additionalProperties": false
+    },
+    "Caso": {
+      "type": "object",
+      "properties": {
+        "tituloCaso": { "type": "string", "description": "Título del caso" },
+        "descripcionCaso": { "type": "string", "description": "Descripción del caso" },
+        "dificultad": { "type": "string", "description": "Fácil, Medio o Difícil" },
+        "fechaOcurrido": { "type": "string", "description": "YYYY-MM-DD" },
+        "lugar": { "type": "string", "description": "Lugar en el que ha ocurrido el caso" },
+        "tiempoRestante": { "type": "string", "description": "Minutos restantes, solo en formato MM" },
+        "cronologia": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "fecha": { "type": "string", "description": "YYYY-MM-DD" },
+              "hora": { "type": "string", "description": "HH:MM" },
+              "evento": { "type": "string", "description": "Descripción breve del evento" }
+            },
+            "required": ["fecha", "hora", "evento"],
+            "additionalProperties": false
+          }
+        },
+        "evidencias": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "nombre": { "type": "string", "description": "Nombre de la evidencia, objeto" },
+              "descripcion": { "type": "string", "description": "Descripción detallada de la evidencia" },
+              "analisis": { "type": "string", "description": "Análisis de la evidencia" },
+              "tipo": { "type": "string", "description": "Arma, Documento, Objeto personal, etc." },
+              "ubicacion": { "type": "string" }
+            },
+            "required": ["nombre", "descripcion", "analisis", "tipo", "ubicacion"],
+            "additionalProperties": false
+          }
+        },
+        "personajes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "nombre": { "type": "string", "description": "Nombre del personaje" },
+              "rol": { "type": "string", "description": "Rol en el caso (Testigo, Víctima, etc.)" },
+              "estado": { "type": "string", "description": "Vivo, Muerto o Desaparecido" },
+              "descripcion": { "type": "string", "description": "Descripción del personaje" },
+              "estado_emocional": { "type": "string", "description": "Nervioso, Tranquilo, etc." },
+              "sexo": { "type": "string", "description": "Masculino o Femenino" }
+            },
+            "required": ["nombre", "rol", "estado", "descripcion", "estado_emocional", "sexo"],
+            "additionalProperties": false
+          }
+        },
+        "explicacionCasoResuelto": {
+          "type": "string",
+          "description": "Descripción de cómo se podría resolver el caso"
+        }
+      },
+      "required": [
+        "tituloCaso",
+        "descripcionCaso",
+        "dificultad",
+        "fechaOcurrido",
+        "lugar",
+        "tiempoRestante",
+        "cronologia",
+        "evidencias",
+        "personajes",
+        "explicacionCasoResuelto"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": ["datosJugador", "Caso"],
+  "additionalProperties": false
+}

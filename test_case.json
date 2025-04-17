@@ -1,0 +1,68 @@
+{
+  "datosJugador": {
+    "nombre": "Laura Martínez",
+    "estado": "Activo",
+    "progreso": "El caso del reloj roto"
+  },
+  "Caso": {
+    "tituloCaso": "El caso del reloj roto",
+    "descripcionCaso": "Un hombre fue encontrado muerto en su sala con un reloj roto a las 2:45. No hay señales de entrada forzada.",
+    "dificultad": "Medio",
+    "fechaOcurrido": "2025-03-21",
+    "lugar": "Calle Magnolia 123, Ciudad Central",
+    "tiempoRestante": "30",
+    "cronologia": [
+      {
+        "fecha": "2025-03-21",
+        "hora": "14:30",
+        "evento": "Vecino escucha un ruido fuerte"
+      },
+      {
+        "fecha": "2025-03-21",
+        "hora": "14:45",
+        "evento": "Víctima presuntamente muere"
+      },
+      {
+        "fecha": "2025-03-21",
+        "hora": "15:10",
+        "evento": "Policía llega a la escena"
+      }
+    ],
+    "evidencias": [
+      {
+        "nombre": "Reloj roto",
+        "descripcion": "Reloj de pulsera hallado en el suelo con la manecilla detenida en 2:45",
+        "analisis": "Se determinó que el reloj se rompió durante la caída, coincidiendo con la hora del deceso",
+        "tipo": "Objeto personal",
+        "ubicacion": "Sala de estar"
+      },
+      {
+        "nombre": "Huella ensangrentada",
+        "descripcion": "Huella de zapato con sangre cerca del cuerpo",
+        "analisis": "La huella no coincide con el calzado de la víctima",
+        "tipo": "Evidencia forense",
+        "ubicacion": "Alfombra junto al sofá"
+      }
+    ],
+    "personajes": [
+      {
+        "nombre": "Carlos Rivas",
+        "rol": "Testigo",
+        "estado": "Vivo",
+        "descripcion": "Vecino del departamento de al lado",
+        "estado_emocional": "Nervioso",
+        "sexo": "Masculino"
+      },
+      {
+        "nombre": "María Gómez",
+        "rol": "Víctima",
+        "estado": "Muerto",
+        "descripcion": "Contadora, 43 años",
+        "estado_emocional": "N/A",
+        "sexo": "Femenino"
+      }
+    ],
+    "explicacionCasoResuelto": "La víctima discutió con un conocido, quien la empujó durante la pelea. Al caer, la víctima se golpeó con la mesa, causando la muerte. El reloj se rompió al caer, marcando la hora exacta del suceso. El asesino escapó antes de la llegada de la policía, dejando una huella como única pista física."
+  }
+}
+  
