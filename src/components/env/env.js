@@ -22,9 +22,10 @@ const PROMPT_SYSTEM_GENERATION_CASE = `
   [IMPORTANTE]
   1. EL jugador es el detective, por lo tanto no puede ser el asesino, ni estar involucrado en el crimen, el es el encargado de resolver el caso.
   2. El jugador no debe morir, el es el detective.
+  3. Evita poner cualquier tilde o elemento UTF-8
 
   Ten en cuenta que el jugador tiene ya los siguientes casos, a si que no se pueden repetir: `;
 
 export {
-    PROMPT_SYSTEM_GENERATION_CASE
-  };
+  PROMPT_SYSTEM_GENERATION_CASE
+};

@@ -1,6 +1,6 @@
 import express from 'express';
-import caseRoutes from './components/routes/caseRoutes.js';
-import postgres from './components/server/postgres.js';
+import caseRoutes from '../components/routes/caseRoutes.js';
+import postgres from '../components/server/postgres.js';
 
 const app = express();
 
@@ -8,7 +8,7 @@ app.use(express.json());
 app.use('/case', caseRoutes);
 
 // Homepage route
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
     res.send('API is running...');
 });
 
