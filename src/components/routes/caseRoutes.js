@@ -8,6 +8,7 @@ import { addEvidence } from '../Tables/Evidence.js';
 import { addCharacter } from '../Tables/Character.js';
 import Together from 'together-ai';
 import { getMessage } from '../api/chatManager.js';
+import { downloadImageToBuffer } from '../api/util.js';
 
 import {
     PROMPT_SYSTEM_GENERATION_CASE,
@@ -87,10 +88,11 @@ router.post('/new', async (req, res) => {
       height: 1024,
       steps: 4,
       output_format: 'png',
-      response_format: 'base64'
+      response_format: 'url'
     });
 
-    addImage(caseID, responseCreateImage.data[0].b64_json);
+    const bytes = await downloadImageToBuffer(responseCreateImage.data[0].url);
+    addImage(caseID, bytes);
 
     res.send(json);
   } catch (error) {
