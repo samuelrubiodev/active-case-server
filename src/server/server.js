@@ -31,6 +31,7 @@ app.get('/players/:playerID', async (req, res) => {
             SELECT 
                 "id", 
                 "player_id", 
+                "title",
                 "date_occurred", 
                 "time_remaining",
                 "description",
