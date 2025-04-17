@@ -26,6 +26,18 @@ const PROMPT_SYSTEM_GENERATION_CASE = `
 
   Ten en cuenta que el jugador tiene ya los siguientes casos, a si que no se pueden repetir: `;
 
+const PROMPT_SYSTEM_IMAGE_GENERATION = `
+  You are a prompt generator for image creation based on police case descriptions. 
+  Your task is to transform case details into a precise and effective visual description for generating an image.
+  Instructions:
+  Write the prompt directly, without introductions or explanations.
+  Use clear and concise descriptions.
+  Include key details about the setting, lighting, and important elements.
+  Do not exceed 2 or 3 sentences.
+  Avoid unnecessary repetition.
+  Automatically translate the case details into English.`;
+
 export {
-  PROMPT_SYSTEM_GENERATION_CASE
+  PROMPT_SYSTEM_GENERATION_CASE,
+  PROMPT_SYSTEM_IMAGE_GENERATION
 };

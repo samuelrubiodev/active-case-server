@@ -1,4 +1,4 @@
-import postgres from '../server/postgres.js';
+import postgres from '../api/postgres.js';
 
 
 const addCharacter = async (json, caseId, character) => {
@@ -12,10 +12,6 @@ const addCharacter = async (json, caseId, character) => {
           ${json.Caso.personajes[character].sexo},
           ${json.Caso.personajes[character].estado_emocional},
           ${json.Caso.personajes[character].estado})`;
-
-}
-
-const getAll = async () => {
 
 }
 

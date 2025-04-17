@@ -1,6 +1,6 @@
 import express from 'express';
 import caseRoutes from '../components/routes/caseRoutes.js';
-import postgres from '../components/server/postgres.js';
+import postgres from '../components/api/postgres.js';
 
 const app = express();
 

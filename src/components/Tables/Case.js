@@ -1,4 +1,4 @@
-import postgres from '../server/postgres.js';
+import postgres from '../api/postgres.js';
 
 const addCase =  async (json, playerId) => {
     const id = await postgres`INSERT INTO "Cases" 
@@ -16,8 +16,12 @@ const addCase =  async (json, playerId) => {
     return id[0].id;
 }
 
-const getAll = async () => {
-
+const addImage = async (caseId, image) => {
+  try {
+    await postgres`UPDATE "Cases" SET image = ${image} WHERE id = ${caseId}`;
+  } catch (error) {
+    console.error('Error updating image:', error);
+  }
 }
 
-export { addCase};
+export { addCase, addImage};

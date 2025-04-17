@@ -1,4 +1,4 @@
-import postgres from '../server/postgres.js';
+import postgres from '../api/postgres.js';
 
 const addEvidence = async (json, caseId, evidence) => {
     await postgres`INSERT INTO "Evidences" (case_id, name, description, type, location, analysis)
@@ -9,10 +9,6 @@ const addEvidence = async (json, caseId, evidence) => {
           ${json.Caso.evidencias[evidence].tipo}, 
           ${json.Caso.evidencias[evidence].ubicacion},
           ${json.Caso.evidencias[evidence].analisis})`;
-
-}
-
-const getAll = async () => {
 
 }
 
