@@ -29,8 +29,8 @@ Full project (Unity + this server): https://github.com/samuelrubiodev/CasoAbiert
 
 1. **Clone** this repo  
    ```bash
-   git clone https://github.com/samuelrubiodev/Active‑Case‑Server.git
-   cd Active‑Case‑Server
+   git clone https://github.com/samuelrubiodev/active-case-server.git
+   cd active‑case‑server
 2. **Install dependencies**
    ```bash
    npm install
