@@ -148,4 +148,23 @@ router.post('/:caseID', async (req, res) => {
   }
 });
 
+
+router.get('/:id/image', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result  = await postgres`SELECT image FROM "Cases" WHERE id = ${id}`;
+
+    if (result.length === 0) {
+      return res.status(404).send('Caso no encontrado');
+    }
+
+    res.set('Content-Type', 'image/png');
+    res.send(result[0].image);
+  } catch (err) {
+    console.error('Error al obtener la imagen:', err);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
+
 export default router;
