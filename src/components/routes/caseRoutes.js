@@ -8,6 +8,7 @@ import { addEvidence } from '../Tables/Evidence.js';
 import { addCharacter } from '../Tables/Character.js';
 import { getMessage } from '../api/chatManager.js';
 import { downloadImageToBuffer, getAll, createImage } from '../api/util.js';
+import { isPlayerExists, isCaseExists } from '../validators/verifications.js';
 
 import {
     PROMPT_SYSTEM_GENERATION_CASE
@@ -21,9 +22,17 @@ router.post('/new', async (req, res) => {
   const fileSchema = await readFile('./caso_schema.json', 'utf-8');
   const jsonSchema = JSON.parse(fileSchema);
 
+  if (req.body.playerID == undefined || req.body.playerID == null) {
+    return res.status(400).json({ error: "Faltan datos en el cuerpo de la solicitud." });
+  }
+
+  if (req.body.nombreJugador == undefined || req.body.nombreJugador == null) {
+    return res.status(400).json({ error: "Faltan datos en el cuerpo de la solicitud." });
+  }
+
   const playerID = req.body.playerID;
-  const isPlayerExists = await postgres`SELECT * FROM "Players" WHERE "id" = ${playerID}`;
-  if (isPlayerExists.length === 0) {
+
+  if (!(await isPlayerExists(playerID))) {
     return res.status(404).json({ error: "El jugador no existe." });
   }
 
@@ -78,6 +87,26 @@ router.post('/new', async (req, res) => {
 
 router.post('/:caseID', async (req, res) => {
   try {
+      if (req.body == undefined || req.body == null) {
+          return res.status(400).json({ error: "Faltan datos en el cuerpo de la solicitud." });
+      }
+
+      if (req.body.playerID == undefined || req.body.playerID == null) {
+          return res.status(400).json({ error: "Faltan datos en el cuerpo de la solicitud." });
+      }
+
+      if (req.params.caseID == undefined || req.params.caseID == null) {
+          return res.status(400).json({ error: "Faltan datos en el cuerpo de la solicitud." });
+      }
+
+      if (!(await isPlayerExists(req.body.playerID))) {
+          return res.status(404).json({ error: "El jugador no existe." });
+      }
+
+      if (!(await isCaseExists(req.params.caseID))) {
+          return res.status(404).json({ error: "El caso no existe." });
+      }
+
       const player = await postgres`SELECT * FROM "Players" WHERE "id" = ${req.body.playerID}`;
       const casesWithDetails = await getAll(postgres, postgres`
         SELECT 
@@ -93,10 +122,6 @@ router.post('/:caseID', async (req, res) => {
         FROM "Cases"
         WHERE "player_id" = ${req.body.playerID} AND "id" = ${req.params.caseID}`);
 
-      if (casesWithDetails.length === 0) {
-          return res.status(404).json({ error: "Caso no encontrado" });
-      }
-
       return res.json({
           player: player[0],
           cases: casesWithDetails
@@ -108,8 +133,11 @@ router.post('/:caseID', async (req, res) => {
   }
 });
 
-
 router.get('/:id/image', async (req, res) => {
+  if (req.params.id == undefined || req.params.id == null) {
+    return res.status(400).json({ error: "Faltan datos en el cuerpo de la solicitud." });
+  }
+  
   const { id } = req.params;
   try {
     const result  = await postgres`SELECT image FROM "Cases" WHERE id = ${id}`;

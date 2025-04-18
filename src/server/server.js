@@ -1,7 +1,6 @@
 import express from 'express';
 import caseRoutes from '../components/routes/caseRoutes.js';
 import playersRoutes from '../components/routes/playersRoutes.js';
-import postgres from '../components/api/postgres.js';
 
 const app = express();
 
