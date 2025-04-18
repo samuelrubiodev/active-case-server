@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import postgres from '../api/postgres.js';
+import { getAll } from '../api/util.js';
 
 dotenv.config({path: '.env.local'});
 
@@ -16,10 +17,11 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:playerID', async (req, res) => {
+router.get('/:playerID/case', async (req, res) => {
     try {
         const player = await postgres`SELECT * FROM "Players" WHERE "id" = ${req.params.playerID}`;
-        const cases = await postgres`
+        
+        const casesWithDetails = await getAll(postgres, postgres`
             SELECT 
                 "id", 
                 "player_id", 
@@ -31,25 +33,11 @@ router.get('/:playerID', async (req, res) => {
                 "explanation_case_solved",
                 "difficult"
             FROM "Cases"
-            WHERE "player_id" = ${req.params.playerID}
-        `
-        
-        const casesWithDetails = await Promise.all(cases.map(async (caseItem) => {
-            const [characters, evidences, messages, timeline] = await Promise.all([
-                postgres`SELECT * FROM "Characters" WHERE "case_id" = ${caseItem.id}`,
-                postgres`SELECT * FROM "Evidences" WHERE "case_id" = ${caseItem.id}`,
-                postgres`SELECT * FROM "Messages" WHERE "case_id" = ${caseItem.id}`,
-                postgres`SELECT * FROM "Timeline" WHERE "case_id" = ${caseItem.id}`
-            ]);
-            return {
-                ...caseItem,
-                characters,
-                evidences,
-                messages,
-                timeline
-            };
-        }));
+            WHERE "player_id" = ${req.params.playerID}`);
 
+        if (casesWithDetails.length === 0) {
+            return res.status(404).json({ error: "Este jugador no tiene casos asignados" });
+        }
 
         return res.json({
             player: player[0],

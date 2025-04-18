@@ -74,6 +74,6 @@
       "additionalProperties": false
     }
   },
-  "required": ["datosJugador", "Caso"],
+  "required": ["Caso"],
   "additionalProperties": false
 }
