@@ -1,4 +1,5 @@
 import postgres from '../api/postgres.js';
+import { sanitizeString } from '../api/util.js';
 
 const addCase = async (json, playerId) => {
     const id = await postgres`INSERT INTO "Cases" 
@@ -6,12 +7,12 @@ const addCase = async (json, playerId) => {
       VALUES (
         ${playerId}, 
         ${new Date(json.Caso.fechaOcurrido)}, 
-        ${json.Caso.tituloCaso}, 
+        ${sanitizeString(json.Caso.tituloCaso)}, 
         ${parseInt(json.Caso.tiempoRestante)}, 
-        ${json.Caso.descripcionCaso}, 
-        ${json.Caso.lugar}, 
-        ${json.Caso.explicacionCasoResuelto}, 
-        ${json.Caso.dificultad}) returning id`;
+        ${sanitizeString(json.Caso.descripcionCaso)}, 
+        ${sanitizeString(json.Caso.lugar)}, 
+        ${sanitizeString(json.Caso.explicacionCasoResuelto)}, 
+        ${sanitizeString(json.Caso.dificultad)}) returning id`;
     
     return id[0].id;
 }

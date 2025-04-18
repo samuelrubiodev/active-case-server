@@ -76,4 +76,8 @@ async function createImage(jsonData) {
     return responseCreateImage.data[0].url;
 }
 
-export { downloadImageToBuffer, getAll, createImage };
+function sanitizeString(str) {
+    return str?.replace(/\u0000/g, '') ?? '';
+}
+
+export { downloadImageToBuffer, getAll, createImage, sanitizeString };
