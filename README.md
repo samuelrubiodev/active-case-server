@@ -1,18 +1,17 @@
 # 🕵️‍♂️ Active Case Server
 
 This is the backend for Caso Abierto, a police‑investigation game built in Unity. It generates AI‑powered cases, stores them in PostgreSQL, generates representative images, and exposes a REST API for the game client.
-Full project (Unity + this server): https://github.com/samuelrubiodev/CasoAbierto
+Full project (Unity + this server): [CasoAbierto](https://github.com/samuelrubiodev/CasoAbierto)
 
 ---
 
 ## 🚀 What it does
 
-- **Generate new cases** via OpenRouter (GPT‑style)  
+- **Generate new cases** via OpenRouter
 - **Persist cases** (players, evidence, timeline, characters) in PostgreSQL  
 - **Generate case images** via Together AI and store the binary in the database  
 - **Serve images** on demand as `image/png`  
 - **Expose** API endpoints for Unity (or any HTTP client) to create and fetch data
-
 
 ---
 
@@ -73,4 +72,3 @@ Full project (Unity + this server): https://github.com/samuelrubiodev/CasoAbiert
 ## 🤝 Contributing
 
 Feel free to open issues or pull requests — any improvements to schema validation, error‑handling, or performance optimizations are welcome!
-   
