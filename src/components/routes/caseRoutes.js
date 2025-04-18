@@ -76,8 +76,7 @@ router.post('/new', async (req, res) => {
   }
 });
 
-
-router.get('/:caseID', async (req, res) => {
+router.post('/:caseID', async (req, res) => {
   try {
       const player = await postgres`SELECT * FROM "Players" WHERE "id" = ${req.body.playerID}`;
       const casesWithDetails = await getAll(postgres, postgres`
