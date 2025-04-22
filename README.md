@@ -45,6 +45,7 @@ Full project (Unity + this server): [CasoAbierto](https://github.com/samuelrubio
     OPENROUTER_MODEL=google/gemini-2.0-flash-001
     TOGETHER_API= # For get API key, visit https://together.xyz
     IMAGE_MODEL_FREE=black-forest-labs/FLUX.1-schnell-Free
+5. **In supabase go into your project and execute these lines of code from the [database](./database.sql) file**
 5. **Start the server**
      ```bash
      npm run devStart
