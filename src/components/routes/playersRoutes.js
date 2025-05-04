@@ -73,7 +73,7 @@ router.post('/:playerID/case/:caseID/message', async (req, res) => {
         }
 
         const { caseID, playerID } = req.params;
-        const { message, role } = req.body;
+        const { message, role, characterID } = req.body;
 
         if (!(await isPlayerExists(playerID))) {
           return res.status(404).json({ error: "El jugador no existe." });
@@ -87,7 +87,7 @@ router.post('/:playerID/case/:caseID/message', async (req, res) => {
           return res.status(400).json({ error: "El rol debe ser 'user' o 'assistant'." });
         }
       
-        await addMessage(caseID, playerID, message, role);
+        await addMessage(caseID, playerID, characterID, message, role);
       
         return res.status(200).json({ message: "Mensaje agregado exitosamente" });
     } catch (err) {

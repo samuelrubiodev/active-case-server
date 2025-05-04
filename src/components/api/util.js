@@ -47,6 +47,31 @@ async function getAll(postgres, query) {
     }
 }
 
+async function getWithoutMessages(postgres, query) {
+    try {
+        const cases = await postgres`${query}`;
+        const casesWithDetails = await Promise.all(cases.map(async (caseItem) => {
+            const [characters, evidences, timeline] = await Promise.all([
+                postgres`SELECT * FROM "Characters" WHERE "case_id" = ${caseItem.id}`,
+                postgres`SELECT * FROM "Evidences" WHERE "case_id" = ${caseItem.id}`,
+                postgres`SELECT * FROM "Timeline" WHERE "case_id" = ${caseItem.id}`
+            ]);
+            return {
+                ...caseItem,
+                characters,
+                evidences,
+                timeline
+            };
+        }));
+
+        return casesWithDetails;
+    
+    } catch (error) {
+        console.error('Error executing query:', error);
+        throw error;
+    }
+}
+
 async function createImage(jsonData) {
     const together = new Together({apiKey: process.env.TOGETHER_API});
 
@@ -80,4 +105,4 @@ function sanitizeString(str) {
     return str?.replace(/\u0000/g, '') ?? '';
 }
 
-export { downloadImageToBuffer, getAll, createImage, sanitizeString };
+export { downloadImageToBuffer, getAll, createImage, sanitizeString, getWithoutMessages };

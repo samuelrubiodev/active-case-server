@@ -7,7 +7,7 @@ import { addTimeline } from '../Tables/Timeline.js';
 import { addEvidence } from '../Tables/Evidence.js';
 import { addCharacter } from '../Tables/Character.js';
 import { getMessage } from '../api/chatManager.js';
-import { downloadImageToBuffer, getAll, createImage } from '../api/util.js';
+import { downloadImageToBuffer, getAll, createImage, getWithoutMessages } from '../api/util.js';
 import { isPlayerExists, isCaseExists } from '../validators/verifications.js';
 
 import {
@@ -108,7 +108,7 @@ router.post('/:caseID', async (req, res) => {
       }
 
       const player = await postgres`SELECT * FROM "Players" WHERE "id" = ${req.body.playerID}`;
-      const casesWithDetails = await getAll(postgres, postgres`
+      const casesWithDetails = await getWithoutMessages(postgres, postgres`
         SELECT 
             "id", 
             "player_id", 
